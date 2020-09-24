@@ -332,12 +332,8 @@ int main(int argc, const char * argv[]) {
 //    OSTaskDemo();
 //    Network();
 //    SocketTest();
-    int serverSocket = CreateSocket();
-//
-    int clienSocket = WaitClient(serverSocket);
-    hand_client(serverSocket, clienSocket);
-
-    close(serverSocket);
+    
+    CreateClientSocket();
     
     return 0;
 }
