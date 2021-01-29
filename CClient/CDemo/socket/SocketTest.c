@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define PORT  9992  //端口号
+#define PORT  54058  //端口号
  #define SIZE 1024   //定义的数组大小
 
 #include "SocketTest.h"

@@ -11,6 +11,6 @@
 
 #include <stdio.h>
 
-
+void stringDemo(void);
 
 #endif /* TestString_h */

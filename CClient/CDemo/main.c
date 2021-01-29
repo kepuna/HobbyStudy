@@ -249,16 +249,20 @@ void Network() {
     bzero(&serverAddr, sizeof(serverAddr)); // clear first
     
     serverAddr.sin_family = AF_INET; // ipv4
-    serverAddr.sin_port = htons(80); // default use 80 prot， 要转换成大端，是16位，不是32位
-    serverAddr.sin_addr = *(struct in_addr *)serverIp->h_addr; // ip地址
+    serverAddr.sin_port = htons(54093); // default use 80 prot， 要转换成大端，是16位，不是32位
     
-    // ip地址没有，需要通过域名 转换出ip
-    char ipaddr[20] = {0};
+    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    inet_aton("127.0.0.1", &(serverAddr.sin_addr));
     
-   
-    // 从ip二进制转换成点分十进制
-    inet_ntop(AF_INET, serverIp->h_addr, ipaddr, 20);
-    printf("ip地址： %s \n", ipaddr);
+//    serverAddr.sin_addr = *(struct in_addr *)serverIp->h_addr; // ip地址
+//
+//    // ip地址没有，需要通过域名 转换出ip
+//    char ipaddr[20] = {0};
+//
+//
+//    // 从ip二进制转换成点分十进制
+//    inet_ntop(AF_INET, serverIp->h_addr, ipaddr, 20);
+//    printf("ip地址： %s \n", ipaddr);
     
     // 到此，地址结构体就完成了填充，接下来就可以连接服务器了
     /*
@@ -330,10 +334,10 @@ int main(int argc, const char * argv[]) {
     // insert code here...
 //    LinListDemo();
 //    OSTaskDemo();
-//    Network();
+    Network();
 //    SocketTest();
     
-    CreateClientSocket();
+//    CreateClientSocket();
     
     return 0;
 }

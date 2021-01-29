@@ -12,6 +12,7 @@
 		FA7C616C2514803400F785F8 /* TestString.c in Sources */ = {isa = PBXBuildFile; fileRef = FA7C616B2514803400F785F8 /* TestString.c */; };
 		FA7C61BC2514C52400F785F8 /* httpd.c in Sources */ = {isa = PBXBuildFile; fileRef = FA7C61BB2514C52400F785F8 /* httpd.c */; };
 		FA7C6809251C47E000F785F8 /* SocketTest.c in Sources */ = {isa = PBXBuildFile; fileRef = FA7C6808251C47E000F785F8 /* SocketTest.c */; };
+		FAF86DD025209CE7006E28F6 /* HttpServer.c in Sources */ = {isa = PBXBuildFile; fileRef = FAF86DCF25209CE7006E28F6 /* HttpServer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,8 @@
 		FA7C61BB2514C52400F785F8 /* httpd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = httpd.c; sourceTree = "<group>"; };
 		FA7C6807251C47E000F785F8 /* SocketTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketTest.h; sourceTree = "<group>"; };
 		FA7C6808251C47E000F785F8 /* SocketTest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = SocketTest.c; sourceTree = "<group>"; };
+		FAF86DCE25209CE7006E28F6 /* HttpServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpServer.h; sourceTree = "<group>"; };
+		FAF86DCF25209CE7006E28F6 /* HttpServer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HttpServer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,8 @@
 			children = (
 				FA7C6807251C47E000F785F8 /* SocketTest.h */,
 				FA7C6808251C47E000F785F8 /* SocketTest.c */,
+				FAF86DCE25209CE7006E28F6 /* HttpServer.h */,
+				FAF86DCF25209CE7006E28F6 /* HttpServer.c */,
 			);
 			path = socket;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 			files = (
 				FA7C61BC2514C52400F785F8 /* httpd.c in Sources */,
 				1F1A2CDB24454F8B00EB4F5D /* main.c in Sources */,
+				FAF86DD025209CE7006E28F6 /* HttpServer.c in Sources */,
 				FA7C616C2514803400F785F8 /* TestString.c in Sources */,
 				FA7C6809251C47E000F785F8 /* SocketTest.c in Sources */,
 				FA7C615C251335FC00F785F8 /* cJSON.c in Sources */,

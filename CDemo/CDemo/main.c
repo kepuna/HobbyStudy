@@ -16,9 +16,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
 #include "cJSON.h"
 #include "SocketTest.h"
+#include "TestString.h"
+#include "HttpServer.h"
 
 //typedef struct Student {
 //    long number;
@@ -326,18 +329,84 @@ void Network() {
 }
 
 
+void SocketDemo1() {
+    int serverSocket = CreateSocket();
+    int clienSocket = WaitClient(serverSocket);
+    hand_client(serverSocket, clienSocket);
+    close(serverSocket);
+}
+
+/*
+ 多进程并发服务器：该服务器就完全弥补了上一个服务器的不足，可以同时处理多个客户端，只要有客户端来连接它，他就能响应。在我们这个服务器中，父进程主要负责监听，所以在父进程一开始就要把父进程的接收函数关闭掉，防止父进程在接收函数处阻塞，导致子进程不能创建成功。同理，子进程主要负责接收客户端，并做相关处理，所以子进程在一创建就要把监听函数关闭，不然会导致服务器功能的紊乱。这个服务器有一个特别要注意的是，子进程在退出时会产生僵尸进程，所以我们一定要对子进程退出后进行处理。
+ */
+
+void handler(int sig) {
+    
+    while (waitpid(-1, NULL, WNOHANG) > 0) {
+        printf("成功处理一个子进程的退出");
+    }
+    
+}
+
+void SocketDemo2() {
+    int serverSocket = CreateSocket();
+    signal(SIGCHLD, handler); //处理子进程，防止僵尸进程的产生
+    
+    while (1) {
+        int clientSocket = WaitClient(serverSocket); //多进程服务器，可以创建子进程来处理，父进程负责监听。
+        
+        int pid = fork();
+        if (pid == -1) {
+            perror("fork");
+            break;
+        }
+        if (pid > 0) {
+            close(clientSocket);
+            continue;
+        }
+        if (pid == 0) {
+            close(serverSocket);
+            hand_client(serverSocket, clientSocket);
+            break;
+        }
+    }
+    close(serverSocket);
+    
+}
+
+
+/*
+ https://www.cnblogs.com/Free-Thinker/p/10616194.html
+ 多线程并发服务器：上一个多进程服务器有一个缺点，就是每当一个子进程得到响应的时候，都要复制父进程的一切信息，这样就导致了CPU资源的浪费，当客户端有很多来连接这个服务器的时候，就会产生很多的子进程，会导致服务器的响应变得很慢。所以我们就想到了多线程并发服务器，我们知道线程的速度是进程的30倍左右，所以我们就用线程来做服务器。
+ */
+
+void SocketDemo3() {
+    
+    int serverSocket = CreateSocket();
+   
+    while (1) {
+        int clientSocket = WaitClient(serverSocket);
+        pthread_t id;
+        pthread_create(&id, NULL, hand_client, (void *)clientSocket); //创建一个线程，来处理客户端。
+        
+        pthread_detach(id); // 把线程分离出去
+    }
+    close(serverSocket);
+}
+
+
 int main(int argc, const char * argv[]) {
     // insert code here...
 //    LinListDemo();
 //    OSTaskDemo();
 //    Network();
 //    SocketTest();
-    int serverSocket = CreateSocket();
-//
-    int clienSocket = WaitClient(serverSocket);
-    hand_client(serverSocket, clienSocket);
-
-    close(serverSocket);
+    
+//    SocketDemo2();
+//    SocketDemo1();
+    
+//    stringDemo();
+    httpServerDemo();
     
     return 0;
 }
