@@ -7,12 +7,14 @@
 
 #include <iostream>
 #include "MapTest.hpp"
+#include "TemplateTest.hpp"
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     
 //    mapTest();
-    mapSearch();
+//    mapSearch();
+    test();
     
     return 0;
 }
